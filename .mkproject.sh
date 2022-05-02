@@ -5,6 +5,7 @@ echo "node_modules
 dist
 .vscode
 .nyc_output
+.mkproject.sh
 notes.md
 scripts.md
 rules.md
