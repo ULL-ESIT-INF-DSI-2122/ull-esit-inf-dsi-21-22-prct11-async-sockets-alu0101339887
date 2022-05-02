@@ -2,7 +2,7 @@ import * as net from 'net';
 
 const client = net.connect({port: 60300});
 
-console.log('Enviando ruta');
+console.log('Enviando ruta ...');
 const filePath = 'Notes/prueba.txt';
 client.write(filePath);
 

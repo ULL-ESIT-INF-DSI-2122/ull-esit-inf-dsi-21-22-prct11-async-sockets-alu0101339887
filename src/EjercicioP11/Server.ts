@@ -31,5 +31,5 @@ const server = net.createServer((connection) => {
   });
 });
 server.listen(60300, () => {
-  console.log('Esperando conexiones');
+  console.log('Esperando conexiones ...');
 });
