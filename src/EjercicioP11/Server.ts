@@ -1,4 +1,4 @@
-// import {spawn} from 'child_process';
+import {spawn} from 'child_process';
 import * as fs from 'fs';
 import * as net from 'net';
 
@@ -13,13 +13,13 @@ const server = net.createServer((connection) => {
           console.log(err);
         });
       } else {
-        // const file = spawn('cat', [data.toString()]);
-        // file.stdout.on('data', (data) => {
-        //   connection.write(data);
-        // });
-        // file.stderr.on('data', (data) => {
-        //   console.log(data);
-        // });
+        const file = spawn('cat', [data.toString()]);
+        file.stdout.on('data', (data) => {
+          connection.write(data);
+        });
+        file.stderr.on('data', (data) => {
+          console.log(data);
+        });
       }
     });
   });
