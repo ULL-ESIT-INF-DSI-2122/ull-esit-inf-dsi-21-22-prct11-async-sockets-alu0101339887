@@ -1,6 +1,8 @@
 {
   "entryPoints": [
-    "src"
+    "src/EjercicioLAB/Client.ts",
+    "src/EjercicioLAB/Cliente.ts",
+    "src/EjercicioLAB/Servidor.ts" 
   ],
   "out": "./docs"
 }
