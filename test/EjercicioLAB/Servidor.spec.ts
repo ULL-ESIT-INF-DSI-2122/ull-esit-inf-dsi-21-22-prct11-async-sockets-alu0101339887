@@ -21,7 +21,7 @@ describe('Servidor', () => {
   });
 
   after(() => {
-    exit();
+    exit(0);
   });
 
   it('Debería poder empezar el proceso', () => {
