@@ -1,7 +1,10 @@
 import 'mocha';
 import {expect} from 'chai';
+
 import {spawn} from 'child_process';
 import * as sinon from 'sinon';
+import {exit} from 'process';
+
 import {Cliente} from '../../src/EjercicioLAB/Cliente';
 import {Servidor} from '../../src/EjercicioLAB/Servidor';
 
@@ -15,6 +18,10 @@ describe('Servidor', () => {
     sinon.stub(console, 'log');
     servidor = new Servidor(60300);
     cliente = new Cliente(60300);
+  });
+
+  after(() => {
+    exit();
   });
 
   it('Debería poder empezar el proceso', () => {
