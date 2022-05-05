@@ -1,30 +1,29 @@
 import 'mocha';
 import {expect} from 'chai';
 import {spawn} from 'child_process';
-import kill from 'tree-kill';
-// import sinon
 import * as sinon from 'sinon';
-import {Cliente} from '../../src/mod/server';
-import {Client} from '../../src/mod/client';
+import {Cliente} from '../../src/EjercicioLAB/Cliente';
+import {Servidor} from '../../src/EjercicioLAB/Servidor';
 
-describe('Server', () => {
-  let client: Client;
-  let server: Server;
+describe('Servidor', () => {
+  let cliente: Cliente;
+  let servidor: Servidor;
   let child: any;
+
   before(() => {
-    child = spawn('node', ['../../src/mod/server.js']);
+    child = spawn('node', ['../../src/EjercicioLAB/Servidor.js']);
     sinon.stub(console, 'log');
-    server = new Server(3000);
-    client = new Client(3000);
+    servidor = new Servidor(60300);
+    cliente = new Cliente(60300);
   });
 
-
-  it('should be able to start', () => {
-    expect(server).to.be.an.instanceof(Server);
-    expect(server).respondTo('start');
+  it('Debería poder empezar el proceso', () => {
+    expect(servidor).to.be.an.instanceof(Servidor);
+    expect(servidor.start).to.be.a('function');
+    expect(servidor).respondTo('start');
   });
 
-  it('should be able to receive a message', (done) => {
+  it('Debería poder mandar un comando', (done) => {
     let output = '';
     child.stdout.on('data', (data: any) => {
       output += data;
@@ -33,6 +32,6 @@ describe('Server', () => {
       expect(output).to.not.be.null;
       done();
     });
-    client.sendMsg('Hello World');
+    cliente.sendCommand('ls', ['-l']);
   });
 });
