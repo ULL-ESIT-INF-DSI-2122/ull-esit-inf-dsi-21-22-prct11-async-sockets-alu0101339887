@@ -1,21 +1,58 @@
 import * as net from 'net';
 
-const client = net.connect({port: 60300});
+/**
+ * Clase que representa un cliente capaz de mandar comandos a un servidor.
+ * @class Cliente
+ */
+export class Cliente {
+  /**
+   * Socket del cliente.
+   */
+  private socket: net.Socket;
 
-console.log('Enviando ruta ...');
-const filePath = 'Notes/prueba.txt';
-client.write(filePath);
+  /**
+   * Constructor de la clase Cliente.
+   * @param port Puerto en el que escucha el servidor.
+   */
+  constructor(private port: number) {
+    this.socket = new net.Socket();
+    this.start();
+  }
 
-let wholeData = '';
-client.on('data', (dataChunk) => {
-  wholeData += dataChunk;
-});
+  /**
+   * Método que inicia el cliente para conectarse al servidor.
+   */
+  start() {
+    this.socket.connect(this.port);
+  }
 
-client.on('end', () => {
-  const finalMesage = JSON.parse(wholeData);
-  console.log(finalMesage.Content);
-});
+  /**
+   * Método que envía un comando al servidor.
+   * @param command Comando a enviar.
+   * @param args Argumentos del comando.
+   */
+  sendCommand(command: string, args: string[]) {
+    this.socket.write(JSON.stringify({type: 'command', command, args}));
+    this.socket.end();
+    this.listen((data) => {
+      const json = JSON.parse(data);
+      if (json.type === 'print') {
+        console.log(json.data);
+      }
+    });
+  }
 
-client.on('error', (err) => {
-  console.log(err);
-});
+  /**
+   * Método que escucha los mensajes del servidor.
+   * @param callback Función a ejecutar cuando se recibe un mensaje.
+   */
+  listen(callback: (data: string) => void) {
+    let output = '';
+    this.socket.on('data', (dataJSON) => {
+      output += dataJSON.toString();
+    });
+    this.socket.on('end', () => {
+      callback(output);
+    });
+  }
+}

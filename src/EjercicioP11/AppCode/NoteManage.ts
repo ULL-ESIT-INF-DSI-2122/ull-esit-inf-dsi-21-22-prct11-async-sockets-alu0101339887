@@ -15,7 +15,7 @@ export class NoteManage {
   * @param usuario Usuario del que se quiere obtener la ruta
   */
   private createPath(usuario: string): void {
-    this.ruta = `./Notes/${usuario}`;
+    this.ruta = `src/EjercicioP11/Notes/${usuario}`;
   }
 
   public getCreatePath(usuario: string) {
