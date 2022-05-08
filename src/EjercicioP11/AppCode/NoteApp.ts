@@ -1,10 +1,10 @@
-import {ClientEmitter} from '../Emitter/ClientEmitter';
+import {Client} from '../Client';
 import yargs from 'yargs';
 import * as net from 'net';
 
 if (process.argv.length > 2) {
   const conection = net.connect(3000);
-  const client = new ClientEmitter(conection);
+  const client = new Client(conection);
   client.on('response', (data) => {
     console.log('Mensaje recibido: ' + data);
   });

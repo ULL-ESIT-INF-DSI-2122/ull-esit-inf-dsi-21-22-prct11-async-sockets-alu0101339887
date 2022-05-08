@@ -51,5 +51,5 @@ export class Servidor {
   }
 }
 
-const server = new Servidor(60300);
+const server = new Servidor(3000);
 server.start();

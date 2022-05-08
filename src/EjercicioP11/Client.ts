@@ -1,58 +1,40 @@
-import * as net from 'net';
+import {EventEmitter} from 'events';
 
 /**
- * Clase que representa un cliente capaz de mandar comandos a un servidor.
- * @class Cliente
+ * Clase Client. Permite conectar un cliente a un servidor.
  */
-export class Cliente {
-  /**
-   * Socket del cliente.
-   */
-  private socket: net.Socket;
+export class Client extends EventEmitter {
+  constructor(event: EventEmitter) {
+    super();
 
-  /**
-   * Constructor de la clase Cliente.
-   * @param port Puerto en el que escucha el servidor.
-   */
-  constructor(private port: number) {
-    this.socket = new net.Socket();
-    this.start();
-  }
-
-  /**
-   * Método que inicia el cliente para conectarse al servidor.
-   */
-  start() {
-    this.socket.connect(this.port);
-  }
-
-  /**
-   * Método que envía un comando al servidor.
-   * @param command Comando a enviar.
-   * @param args Argumentos del comando.
-   */
-  sendCommand(command: string, args: string[]) {
-    this.socket.write(JSON.stringify({type: 'command', command, args}));
-    this.socket.end();
-    this.listen((data) => {
-      const json = JSON.parse(data);
-      if (json.type === 'print') {
-        console.log(json.data);
-      }
+    /**
+     * Evento que se dispara cuando se manda un mensaje.
+     */
+    let msj = '';
+    event.on('data', (data) => {
+      msj += data.toString();
     });
-  }
 
-  /**
-   * Método que escucha los mensajes del servidor.
-   * @param callback Función a ejecutar cuando se recibe un mensaje.
-   */
-  listen(callback: (data: string) => void) {
-    let output = '';
-    this.socket.on('data', (dataJSON) => {
-      output += dataJSON.toString();
+    /**
+     * Evento que se dispara cuando se termina de mandar un mensaje.
+     */
+    event.on('end', () => {
+      this.emit('response', msj);
+      console.log(msj);
     });
-    this.socket.on('end', () => {
-      callback(output);
+
+    /**
+     * Evento que se dispara cuando se cierra la conexión.
+     */
+    event.on('close', () => {
+      console.log('Conexión cerrada');
+    });
+
+    /**
+     * Evento que se dispara cuando se produce un error.
+     */
+    event.on('error', (err) => {
+      console.log(err);
     });
   }
 }

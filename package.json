@@ -16,7 +16,9 @@
       "src/**/*.ts"
     ],
     "exclude": [
-      "src/EjercicioP11/AppCode/NoteApp.ts"
+      "src/EjercicioP11/AppCode/NoteApp.ts",
+      "src/LAB/Servidor.ts",
+      "src/LAB/Cliente.ts"
     ]
   },
   "repository": {

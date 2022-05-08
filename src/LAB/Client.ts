@@ -1,6 +1,6 @@
 import {Cliente} from './Cliente';
 
-const client = new Cliente(60300);
+const client = new Cliente(3000);
 
 // eslint-disable-next-line max-len
 if (process.argv[2] === 'cat' && process.argv[3] !== undefined) {
