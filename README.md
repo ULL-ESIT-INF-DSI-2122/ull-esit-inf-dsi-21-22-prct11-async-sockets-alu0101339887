@@ -451,7 +451,7 @@ yargs.command({
 
 ## Fichero Client<a name="id19"></a>
 
-En este fichero se encuentra la clase ClientEmiter, que se encarga de conectar un cliente con el servidor. 
+En este fichero se encuentra la clase Client, que se encarga de conectar un cliente con el servidor. 
 
 ```typescript
 export class Client extends EventEmitter {
@@ -576,7 +576,7 @@ console.log('Comando no reconocido');
 socket.write('Comando no reconocido');
 ```
 
-A partir de esto de creará una instancia de ServerEmitter, que se encargará de conectar el servidor y ponerlo a la espera de que algún usuario se conecte.
+A partir de esto de creará una instancia de Server, que se encargará de conectar el servidor y ponerlo a la espera de que algún usuario se conecte.
 
 ```typescript
 const srv = new Server(3000);
