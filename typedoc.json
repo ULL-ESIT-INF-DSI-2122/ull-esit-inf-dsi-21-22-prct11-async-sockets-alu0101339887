@@ -1,8 +1,12 @@
 {
   "entryPoints": [
-    "src/EjercicioLAB/Client.ts",
-    "src/EjercicioLAB/Cliente.ts",
-    "src/EjercicioLAB/Servidor.ts" 
+    "src/LAB/Client.ts",
+    "src/LAB/Cliente.ts",
+    "src/LAB/Servidor.ts",
+    "src/EjercicioP11/Client.ts",
+    "src/EjercicioP11/Server.ts", 
+    "src/EjercicioP11/AppCode/NoteApp.ts",
+    "src/EjercicioP11/AppCode/NoteManage.ts"
   ],
   "out": "./docs"
 }
