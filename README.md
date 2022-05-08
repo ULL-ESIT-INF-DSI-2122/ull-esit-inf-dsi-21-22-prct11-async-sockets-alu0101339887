@@ -579,9 +579,7 @@ socket.write('Comando no reconocido');
 A partir de esto de creará una instancia de ServerEmitter, que se encargará de conectar el servidor y ponerlo a la espera de que algún usuario se conecte.
 
 ```typescript
-import {ServerEmitter} from './Emitter/ServerEmitter';
-
-const srv = new ServerEmitter(3000);
+const srv = new Server(3000);
 srv.listen();
 ```
 
